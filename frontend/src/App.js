@@ -1,20 +1,20 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Dashboard from './pages/Dashboard';
-import Profile from './pages/Profile';
+import axios from 'axios';
 
 function App() {
+  const [message, setMessage] = React.useState("");
+
+  React.useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API_BASE}/api/posts`)
+      .then(res => setMessage(res.data.message))
+      .catch(err => setMessage("Error fetching posts"));
+  }, []);
+
   return (
-    <Router>
-      <Routes>
-        <Route path='/' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='/dashboard' element={<Dashboard />} />
-        <Route path='/profile/:id' element={<Profile />} />
-      </Routes>
-    </Router>
+    <div style={{ textAlign: 'center', marginTop: '50px' }}>
+      <h1>Instagram Clone</h1>
+      <p>{message}</p>
+    </div>
   );
 }
 
