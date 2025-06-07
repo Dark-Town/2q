@@ -11,7 +11,7 @@ function Register() {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post('http://localhost:5000/api/users/register', { username, email, password });
+      const { data } = await axios.post('https://twoq.onrender.com/api/users/register', { username, email, password });
       localStorage.setItem('userInfo', JSON.stringify(data));
       navigate('/dashboard');
     } catch(err) {
